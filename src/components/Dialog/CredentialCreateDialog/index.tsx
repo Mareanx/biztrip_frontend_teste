@@ -1,4 +1,3 @@
-// CreateCredentialDialog.tsx
 import { Controller } from "react-hook-form";
 import { CustomDialog } from "..";
 import { FieldWrapper, Label } from "./styled";
@@ -30,7 +29,6 @@ export function CreateCredentialDialog({
     formState: { errors },
   } = formMethods;
 
-  // Corrigindo a tipagem do handleSubmit
   const onSubmit = formHandleSubmit(handleSubmit);
 
   return (
@@ -57,7 +55,7 @@ export function CreateCredentialDialog({
                 }))}
                 onValueChange={(value) => {
                   field.onChange(value);
-                  formMethods.setValue("service_type", "");
+                  formMethods.reset({ provider_uuid: value, service_type: "" });
                 }}
                 defaultValue={field.value}
                 error={"Selecione um provedor"}
@@ -71,7 +69,7 @@ export function CreateCredentialDialog({
             Nome da Credencial<span>(obrigatório)</span>
           </Label>
           <Input
-            id={""}
+            id="description"
             inputSize="md"
             fullWidth
             {...register("description")}
@@ -95,7 +93,7 @@ export function CreateCredentialDialog({
                   options={serviceTypes}
                   onValueChange={field.onChange}
                   defaultValue={field.value}
-                  error={"Selecione um tipo de serviçp"}
+                  error={"Selecione um tipo de serviço"}
                   disabled={!selectedProvider || loadingParameters}
                 />
               )}
@@ -110,11 +108,11 @@ export function CreateCredentialDialog({
               {param.required && <span>(obrigatório)</span>}
             </Label>
             <Input
-              id={""}
+              id={param.uuid}
               inputSize="md"
               fullWidth
               type={param.input_type}
-              {...register()}
+              {...register(param.uuid)}
               placeholder={param.description}
             />
             {errors[param.uuid] && (
@@ -123,23 +121,6 @@ export function CreateCredentialDialog({
               </p>
             )}
           </FieldWrapper>
-        ))}
-
-        {parameters.map((param) => (
-          <Controller
-            key={param.uuid}
-            name={param.uuid}
-            control={control}
-            render={({ field, fieldState }) => (
-              <Input
-                {...field}
-                label={param.title}
-                type={param.input_type === "number" ? "number" : "text"}
-                error={fieldState.error?.message}
-                required={param.required}
-              />
-            )}
-          />
         ))}
       </form>
     </CustomDialog>

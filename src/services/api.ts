@@ -3,6 +3,8 @@ import {
   CreateCredentialPayload,
   EditCredentialPayload,
 } from "../data/model/credential_interface";
+import { Provider } from "../data/model/provider_interface";
+import { Parameter } from "../schema/form_create_schema";
 
 const api: AxiosInstance = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
@@ -19,21 +21,18 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-// Buscar Credenciais
 export const getCredentials = async (page = 1) => {
   try {
     const response = await api.get(`/credentials?page=${page}`);
-    
     return {
       data: response.data["data"],
-      totalPages: response.data["meta"]?.["last_page"] ?? 1, // <-- ajuste aqui dependendo da estrutura real
+      totalPages: response.data["meta"]?.["last_page"] ?? 1,
     };
   } catch (error) {
     console.error("Erro ao buscar credenciais:", error);
     throw error;
   }
 };
-
 
 export const createCredential = async (
   providerUuid: string,
@@ -46,21 +45,23 @@ export const createCredential = async (
   return response.data;
 };
 
-export const editCredential = async (
-  data: EditCredentialPayload
-) => {
-  console.log("Payload enviado para o servidor:", data); // Verifica o payload
+export const editCredential = async (data: EditCredentialPayload) => {
+  console.log("Payload enviado para o servidor:", data);
 
   const response = await api.put(`/credentials`, data);
   return response.data;
 };
 
-export const getProviders = async () => {
+export const getProviders = async (): Promise<Provider[]> => {
   const response = await api.get("/providers");
   return response.data;
 };
 
-export const getParametersProvider = async (providerUuid: string) => {
+export const getParametersProvider = async (
+  providerUuid: string
+): Promise<{
+  data: { service_types: string[]; parameters: Parameter[] };
+}> => {
   const response = await api.get(
     `/credentials/providers/${providerUuid}/parameters`
   );

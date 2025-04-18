@@ -9,10 +9,10 @@ interface HeaderProps {
   searchTerm: string;
 }
 
-export const Header = ({ 
-  onCreateCredential, 
-  onSearch, 
-  searchTerm 
+export const Header = ({
+  onCreateCredential,
+  onSearch,
+  searchTerm,
 }: HeaderProps) => {
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     onSearch(event.target.value);
@@ -23,6 +23,7 @@ export const Header = ({
       <LeftSide>
         <h1>Credenciais</h1>
       </LeftSide>
+      
 
       <RightSide>
         <Input

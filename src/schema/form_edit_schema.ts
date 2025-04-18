@@ -9,7 +9,7 @@ type Parameter = {
 
 export const baseEditSchema = yup.object({
   description: yup.string().required("Informe o nome da credencial"),
-  provider_uuid: yup.string().notRequired(), // Não obrigatório
+  provider_uuid: yup.string().notRequired(), 
 });
 
 export const generateEditSchema = (

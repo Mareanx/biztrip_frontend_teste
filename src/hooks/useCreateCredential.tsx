@@ -1,15 +1,15 @@
-// hooks/useCreateCredentialDialog.ts
 import { useEffect, useState } from "react";
 import { useForm, UseFormReturn } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
+import { yupResolver } from '@hookform/resolvers/yup';
 import { toast } from "react-hot-toast";
-import { baseSchema, generateFullSchema } from "../schema/form_schema";
+import { baseSchema, generateFullSchema } from "../schema/form_create_schema";
 import {
   createCredential,
   getProviders,
   getParametersProvider,
 } from "../services/api";
-import { Parameter } from "../schema/form_schema";
+import { Parameter } from "../schema/form_create_schema";
+import * as yup from "yup";
 
 const SERVICE_TYPES = {
   road: "Road",
@@ -18,7 +18,6 @@ const SERVICE_TYPES = {
   vehicle: "Vehicle",
 };
 
-// 👇 Aqui é onde permitimos qualquer campo dinâmico com string/any
 export type CreateCredentialForm = Record<string, any>;
 
 type Provider = {
@@ -56,9 +55,9 @@ export function useCreateCredentialDialog({
   const [parameters, setParameters] = useState<Parameter[]>([]);
   const [loadingParameters, setLoadingParameters] = useState(false);
   const [hasServiceTypes, setHasServiceTypes] = useState(true);
-  const [currentSchema, setCurrentSchema] = useState(baseSchema);
+  const [currentSchema, setCurrentSchema] =
+    useState<yup.ObjectSchema<Record<string, any>>>(baseSchema);
 
-  // ✅ Suporte a campos dinâmicos
   const formMethods = useForm<CreateCredentialForm>({
     resolver: yupResolver(currentSchema),
     defaultValues: {
@@ -84,6 +83,10 @@ export function useCreateCredentialDialog({
       setLoadingParameters(true);
       getParametersProvider(selectedProvider)
         .then((response) => {
+          if (!response || !response.data) {
+            throw new Error("Dados inválidos retornados pela API");
+          }
+
           const { service_types, parameters } = response.data;
           const hasServiceTypes = service_types?.length > 0;
 
@@ -103,11 +106,12 @@ export function useCreateCredentialDialog({
 
           setServiceTypes(formattedServiceTypes);
           setParameters(parameters);
-          setLoadingParameters(false);
         })
         .catch((error) => {
           toast.error("Erro ao carregar parâmetros do provedor");
           console.error(error);
+        })
+        .finally(() => {
           setLoadingParameters(false);
         });
     } else {

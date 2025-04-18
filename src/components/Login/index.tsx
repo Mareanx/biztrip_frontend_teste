@@ -12,7 +12,7 @@ import { ButtonElement } from "../../components/Button";
 
 import { loginSchema, LoginFormData } from "../../schema/login_schema";
 import { login } from "../../services/auth";
-import { LoginLoadingOverlay } from "../Form/LoginLoadingOverlay";
+import { LoginLoadingOverlay } from "../LoadingOverlay";
 
 export function Login() {
   const [isLoading, setIsLoading] = useState(false);
@@ -52,10 +52,12 @@ export function Login() {
           <FormField name="email">
             <Label>Email:</Label>
             <Input
-              id={""} fullWidth={true}
+              id={""}
+              fullWidth={true}
               {...register("email")}
               type="email"
-              placeholder="Digite seu email"            />
+              placeholder="Digite seu email"
+            />
             {errors.email && (
               <ErrorMessage>{errors.email.message}</ErrorMessage>
             )}
@@ -65,17 +67,20 @@ export function Login() {
           <FormField name="password">
             <Label>Senha</Label>
             <Input
-              id={""} fullWidth={true}
+              id={""}
+              fullWidth={true}
               {...register("password")}
               type="password"
-              placeholder="••••••"              
+              placeholder="••••••"
             />
             {errors.password && (
               <ErrorMessage>{errors.password.message}</ErrorMessage>
             )}
           </FormField>
 
-          <ButtonElement variant="primary" fullWidth={true}>Entrar</ButtonElement>
+          <ButtonElement variant="primary" fullWidth={true}>
+            Entrar
+          </ButtonElement>
         </FormRoot>
       </LoginContainer>
     </>

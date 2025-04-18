@@ -7,12 +7,20 @@ import {
 import { Credential } from "../data/model/credential_interface";
 import { Header } from "../components/Header";
 import { CredentialList } from "../components/CredentialList";
-import { Container, ListWrapper } from "./styled";
+import {
+  Container,
+  Body,
+  Footer,
+  LoadingContainer,
+  EmptyContainer,
+} from "./styled";
 import { toast } from "react-hot-toast";
 import { ConfirmDialog } from "../components/Dialog/ConfirmDialog";
 import { Pagination } from "../components/Pagination";
 import { CreateCredentialDialog } from "../components/Dialog/CredentialCreateDialog";
+import { Loader2 } from "lucide-react";
 
+// eslint-disable-next-line react-refresh/only-export-components
 export async function fetchCredentials(
   page = 1
 ): Promise<{ data: Credential[]; totalPages: number } | undefined> {
@@ -107,43 +115,49 @@ export function Home() {
 
   const handleCredentialCreated = () => {
     toast.success("Credencial criada com sucesso!");
-    loadCredentials(); 
+    loadCredentials();
   };
 
   return (
     <Container>
-      {/* Diálogo de criação de credencial */}
       <CreateCredentialDialog
         open={isCreateDialogOpen}
         onOpenChange={setIsCreateDialogOpen}
         onCreated={handleCredentialCreated}
-
       />
 
-      {/* Header com botão de criação */}
       <Header
         onCreateCredential={() => setIsCreateDialogOpen(true)}
         onSearch={setSearchTerm}
         searchTerm={searchTerm}
       />
 
-      {/* Lista de credenciais */}
-      <ListWrapper>
+      <Body>
         {loading ? (
-          <p>Carregando credenciais...</p>
+          <LoadingContainer>
+            <Loader2 size={48} className="spinner" />
+            <p>Carregando credenciais...</p>
+          </LoadingContainer>
         ) : showEmptySearchResult ? (
-          <p>
-            Nenhuma credencial encontrada para: <strong>{searchTerm}</strong>
-          </p>
+          <EmptyContainer>
+            <p>Nenhuma credencial encontrada</p>
+          </EmptyContainer>
         ) : (
           <CredentialList
             data={filteredCredentials}
             onToggleActive={handleRequestToggle}
           />
         )}
-      </ListWrapper>
+      </Body>
 
-      {/* Diálogo de confirmação para ativar/inativar */}
+      <Footer>
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={loadCredentials}
+        />
+      </Footer>
+
       <ConfirmDialog
         open={confirmActive}
         onOpenChange={setConfirmActive}
@@ -161,13 +175,6 @@ export function Home() {
             : ""
         }
         confirmLabel={confirmAction === "activate" ? "Ativar" : "Inativar"}
-      />
-
-      {/* Paginação */}
-      <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        onPageChange={loadCredentials}
       />
     </Container>
   );
