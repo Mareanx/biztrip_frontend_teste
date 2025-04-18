@@ -4,11 +4,13 @@ export const PaginationContainer = styled("div", {
   display: "flex",
   alignItems: "center",
   justifyContent: "space-between",
-  padding: "0 32px 0 32px",
+  padding: "20px 32px",
   position: "relative",
   width: "100%",
   backgroundColor: "$primaryForeground",
   fontFamily: "system-ui",
+  borderTop: "1px solid $neutral-200",
+  boxShadow: "4px 2px 0px rgba(0, 0, 0, 0.1)",
 });
 
 export const PageButton = styled("button", {

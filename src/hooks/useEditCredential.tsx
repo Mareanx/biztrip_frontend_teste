@@ -87,7 +87,7 @@ export function EditCredentialDialog({
     }, {} as Record<string, unknown>),
   };
 
-  const { control, register, handleSubmit, reset, watch } =
+  const { control, register, handleSubmit, reset } =
     useForm<EditCredentialForm>({
       defaultValues: initialValues,
     });

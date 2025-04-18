@@ -1,6 +1,6 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import { Loader2 } from "lucide-react";
-import { Overlay, Content, SpinnerContainer, SpinnerText } from "./styled";
+import { Overlay, Content, LoadingContainer } from "./styled";
 
 export function LoginLoadingOverlay() {
   return (
@@ -10,10 +10,10 @@ export function LoginLoadingOverlay() {
       </Dialog.Overlay>
       <Dialog.Content asChild>
         <Content>
-          <SpinnerContainer>
+          <LoadingContainer>
             <Loader2 size={48} className="spinner" />
-            <SpinnerText>Carregando...</SpinnerText>
-          </SpinnerContainer>
+            <p>Carregando...</p>
+          </LoadingContainer>
         </Content>
       </Dialog.Content>
     </Dialog.Root>

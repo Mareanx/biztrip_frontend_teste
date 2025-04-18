@@ -106,7 +106,7 @@ export function Home() {
       setConfirmActive(false);
       setSelectedCredential(null);
       setConfirmAction(null);
-      await loadCredentials();
+      await loadCredentials(currentPage);
     } catch (error) {
       toast.error("Erro ao atualizar status");
       console.error(error);
@@ -116,6 +116,11 @@ export function Home() {
   const handleCredentialCreated = () => {
     toast.success("Credencial criada com sucesso!");
     loadCredentials();
+  };
+
+  const handleCredentialEdited = () => {
+    toast.success("Credencial editada com sucesso!");
+    loadCredentials(currentPage);
   };
 
   return (
@@ -146,6 +151,7 @@ export function Home() {
           <CredentialList
             data={filteredCredentials}
             onToggleActive={handleRequestToggle}
+            onEdited={handleCredentialEdited}
           />
         )}
       </Body>

@@ -1,6 +1,6 @@
 // src/stories/Login.stories.tsx
 import type { Meta, StoryObj } from "@storybook/react";
-import { Login } from "../components/Login";
+import { Login } from "../pages/Login";
 import { within, userEvent, expect, fn } from "@storybook/test";
 import { HttpResponse, http } from "msw";
 import { MemoryRouter } from "react-router-dom";

@@ -4,18 +4,27 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 
-import { FormRoot } from "../Form/Root";
-import { FormField } from "../Form/Field";
+import { FormRoot } from "../../components/Form/Root";
+import { FormField } from "../../components/Form/Field";
 import { Input } from "../../components/Input";
-import { LoginContainer, FormTitle, ErrorMessage, Label } from "./styled";
+import {
+  LoginContainer,
+  FormTitle,
+  ErrorMessage,
+  Label,
+  PasswordWrapper,
+  TogglePasswordButton,
+} from "./styled";
 import { ButtonElement } from "../../components/Button";
 
 import { loginSchema, LoginFormData } from "../../schema/login_schema";
 import { login } from "../../services/auth";
-import { LoginLoadingOverlay } from "../LoadingOverlay";
+import { LoginLoadingOverlay } from "../../components/LoadingOverlay";
+import { Eye, EyeOff } from "lucide-react"; // Ícones para alternar visibilidade
 
 export function Login() {
   const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false); // Estado para alternar visibilidade da senha
   const navigate = useNavigate();
 
   const {
@@ -52,7 +61,7 @@ export function Login() {
           <FormField name="email">
             <Label>Email:</Label>
             <Input
-              id={""}
+              id="email"
               fullWidth={true}
               {...register("email")}
               type="email"
@@ -66,13 +75,22 @@ export function Login() {
           {/* Campo Senha */}
           <FormField name="password">
             <Label>Senha</Label>
-            <Input
-              id={""}
-              fullWidth={true}
-              {...register("password")}
-              type="password"
-              placeholder="••••••"
-            />
+            <PasswordWrapper>
+              <Input
+                id="password"
+                fullWidth={true}
+                {...register("password")}
+                type={showPassword ? "text" : "password"} // Alterna entre "text" e "password"
+                placeholder="••••••"
+              />
+              <TogglePasswordButton
+                type="button"
+                onClick={() => setShowPassword(!showPassword)} // Alterna o estado
+              >
+                {showPassword ? <EyeOff /> : <Eye />}{" "}
+                {/* Ícones para alternar */}
+              </TogglePasswordButton>
+            </PasswordWrapper>
             {errors.password && (
               <ErrorMessage>{errors.password.message}</ErrorMessage>
             )}

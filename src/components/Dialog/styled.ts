@@ -29,7 +29,6 @@ export const FieldWrapper = styled("div", {
   marginBottom: "16px",
 });
 
-
 // Container Principal do Dialog
 export const DialogContent = styled(Dialog.Content, {
   position: "fixed",
@@ -42,9 +41,20 @@ export const DialogContent = styled(Dialog.Content, {
   display: "flex",
   flexDirection: "column",
   padding: 0,
-  width: "600px",
-  height: "680px",
+  width: "600px", // desktop padrão
+  height: "auto", // altura fluida
+  maxHeight: "90vh", // não ultrapassa a altura da tela
+  overflowY: "auto", // permite scroll
   animation: `${contentShow} 200ms ease-in-out`,
+  boxSizing: "border-box",
+
+  "@media (max-width: 768px)": {
+    width: "90vw", // ocupa 90% da largura da viewport
+    maxWidth: "100%", // impede ultrapassar a tela
+    height: "auto", // deixa a altura fluida
+    maxHeight: "90vh", // mantém o limite de altura
+    borderRadius: "6px",
+  },
 });
 
 // Cabeçalho
@@ -58,7 +68,7 @@ export const DialogHeader = styled("div", {
   fontFamily: "$default",
   fontSize: "$sm",
   fontWeight: "lighter",
-  borderBottom:"1px solid $neutral-100",
+  borderBottom: "1px solid $neutral-100",
   position: "relative",
 });
 
@@ -100,5 +110,3 @@ export const CloseButton = styled("button", {
     color: "#374151", // tom mais escuro ao passar o mouse (opcional)
   },
 });
-
-

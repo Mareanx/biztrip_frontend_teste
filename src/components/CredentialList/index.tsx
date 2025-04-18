@@ -13,7 +13,10 @@ import {
   ActionContainer,
 } from "./styled";
 import * as S from "./styled";
-import { Credential, EditCredential } from "../../data/model/credential_interface";
+import {
+  Credential,
+  EditCredential,
+} from "../../data/model/credential_interface";
 import { Bed, BusFront, Car, CloudAlert, PlaneTakeoff } from "lucide-react";
 import { EditCredentialDialog } from "../../hooks/useEditCredential";
 import { useState } from "react";
@@ -25,18 +28,18 @@ type CredentialValue = {
   name: string;
   value: unknown;
   parameter: {
-    uuid: string,
-    title: string,
-    input_type: string,
-    description: string,
-    required: boolean
-    }
-  
+    uuid: string;
+    title: string;
+    input_type: string;
+    description: string;
+    required: boolean;
+  };
 };
 
 type CredentialListProps = {
   data: Credential[];
   onToggleActive: (credential: Credential, active: boolean) => void;
+  onEdited: () => void;
 };
 
 const SERVICE_TYPES: Record<string, React.ReactNode> = {
@@ -46,9 +49,14 @@ const SERVICE_TYPES: Record<string, React.ReactNode> = {
   vehicle: <Car />,
 };
 
-export const CredentialList = ({ data, onToggleActive }: CredentialListProps) => {
+export const CredentialList = ({
+  data,
+  onToggleActive,
+  onEdited,
+}: CredentialListProps) => {
   const [dialogEditOpen, setDialogEditOpen] = useState(false);
-  const [selectedCredential, setSelectedCredential] = useState<EditCredential | null>(null);
+  const [selectedCredential, setSelectedCredential] =
+    useState<EditCredential | null>(null);
 
   const handleEditClick = (credential: Credential) => {
     try {
@@ -56,10 +64,14 @@ export const CredentialList = ({ data, onToggleActive }: CredentialListProps) =>
         throw new Error("Credencial não possui valores para edição");
       }
 
-      const values = credential.credential_values .map((item: CredentialValue) => ({
-        uuid: item.uuid || "", name: item.name ?? "",
-        value: item.value ?? null, parameter: item.parameter || [],
-      }));
+      const values = credential.credential_values.map(
+        (item: CredentialValue) => ({
+          uuid: item.uuid || "",
+          name: item.name ?? "",
+          value: item.value ?? null,
+          parameter: item.parameter || [],
+        })
+      );
 
       setSelectedCredential({
         credential_description: credential.description,
@@ -71,7 +83,11 @@ export const CredentialList = ({ data, onToggleActive }: CredentialListProps) =>
       setDialogEditOpen(true);
     } catch (error) {
       console.error("Erro na conversão:", error);
-      toast.error(`Falha ao carregar dados: ${error instanceof Error ? error.message : "Erro desconhecido"}`);
+      toast.error(
+        `Falha ao carregar dados: ${
+          error instanceof Error ? error.message : "Erro desconhecido"
+        }`
+      );
     }
   };
 
@@ -80,7 +96,10 @@ export const CredentialList = ({ data, onToggleActive }: CredentialListProps) =>
       <Table>
         <TableBody>
           {data.map((credential) => (
-            <TableRow key={credential.credential_uuid} active={credential.active}>
+            <TableRow
+              key={credential.credential_uuid}
+              active={credential.active}
+            >
               <TableCell type="data" align="top">
                 <DataItemContainer>
                   <DataItem>
@@ -105,14 +124,19 @@ export const CredentialList = ({ data, onToggleActive }: CredentialListProps) =>
                 <DataItemContainer>
                   <DataItem>
                     <Header>Serviço</Header>
-                    <DataSpan>{SERVICE_TYPES[credential.service_type] || <CloudAlert />}</DataSpan>
+                    <DataSpan>
+                      {SERVICE_TYPES[credential.service_type] || <CloudAlert />}
+                    </DataSpan>
                   </DataItem>
                 </DataItemContainer>
               </TableCell>
 
               <TableCell type="action">
                 <ActionContainer>
-                  <S.IconButton onClick={() => handleEditClick(credential)}>
+                  <S.IconButton
+                    onClick={() => handleEditClick(credential)}
+                    title="Editar credencial"
+                  >
                     <Pencil1Icon />
                   </S.IconButton>
 
@@ -137,6 +161,7 @@ export const CredentialList = ({ data, onToggleActive }: CredentialListProps) =>
         }}
         onEdited={() => {
           setDialogEditOpen(false);
+          onEdited();
           //TODO: Implementar função de atualizar lista ao finalizar edição
         }}
         initialData={

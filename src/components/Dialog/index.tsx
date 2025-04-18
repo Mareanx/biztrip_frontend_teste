@@ -29,7 +29,6 @@ export function CustomDialog({
   confirmLabel = "Confirmar",
   open,
   onOpenChange,
-  
 }: CustomDialogProps) {
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
@@ -52,10 +51,9 @@ export function CustomDialog({
                 Cancelar
               </ButtonElement>
             </Dialog.Close>
-              <ButtonElement variant="primary" size="sm" onClick={onConfirm}>
-                {confirmLabel}
-              </ButtonElement>
-           
+            <ButtonElement variant="primary" size="sm" onClick={onConfirm}>
+              {confirmLabel}
+            </ButtonElement>
           </DialogFooter>
         </DialogContent>
       </Dialog.Portal>

@@ -28,5 +28,31 @@ export const Label = styled("label", {
   fontSize: "$xs",
   fontWeight: 500,
   color: "$neutral-700",
-  
+});
+
+export const PasswordWrapper = styled("div", {
+  position: "relative",
+  display: "flex",
+  alignItems: "center",
+});
+
+export const TogglePasswordButton = styled("button", {
+  all: "unset",
+  position: "absolute",
+  right: "1rem",
+  cursor: "pointer",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  padding: "0.5rem",
+  color: "$neutral-500",
+
+  "&:hover": {
+    color: "$primary",
+  },
+
+  svg: {
+    width: "20px",
+    height: "20px",
+  },
 });

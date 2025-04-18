@@ -1,4 +1,9 @@
-import { styled } from "../../styles/stitches.config";
+import { styled, keyframes } from "../../styles/stitches.config";
+
+const spin = keyframes({
+  from: { transform: "rotate(0deg)" },
+  to: { transform: "rotate(360deg)" },
+});
 
 export const Overlay = styled("div", {
   position: "fixed",
@@ -17,7 +22,7 @@ export const Content = styled("div", {
   zIndex: 50,
 });
 
-export const SpinnerContainer = styled("div", {
+export const LoadingContainer = styled("div", {
   width: "8rem",
   height: "8rem",
   backgroundColor: "white",
@@ -27,15 +32,20 @@ export const SpinnerContainer = styled("div", {
   flexDirection: "column",
   alignItems: "center",
   justifyContent: "center",
-});
 
-export const SpinnerText = styled("p", {
-  marginTop: "1rem",
-  color: "#4B5563", // Gray-700
-  fontWeight: 500,
-  fontSize: "1rem",
-});
+  position: "fixed",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  gap: "1rem",
+  color: "$neutral-700",
+  fontSize: "$base",
 
-export const Spinner = styled("div", {
-  animation: "spin 1s linear infinite",
+  ".spinner": {
+    animation: `${spin} 1s linear infinite`,
+  },
+
+  "@media (max-width: 768px)": {
+    gap: "0.5rem",
+  },
 });

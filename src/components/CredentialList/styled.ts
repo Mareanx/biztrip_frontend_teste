@@ -1,55 +1,85 @@
 import { styled } from "../../styles/stitches.config";
 
-export const Table = styled("table", {
-  width: "100%",
-  maxWidth: "1440px",
-  marginTop: "0 auto",
-  borderCollapse: "collapse",
-  backgroundColor: "$white",
-  borderRadius: "$md",
-});
-export const TableBody = styled("tbody", {
-  display: "flex",
-  flexDirection: "column",
-  gap: "1.5rem",
-});
-
 export const Wrapper = styled("div", {
   width: "100%",
   display: "flex",
   justifyContent: "center",
-  padding: "$9",
+  padding: "1rem",
   backgroundColor: "$neutral-100",
+  marginTop: "60px",
+
+  "@media (max-width: 768px)": {
+    padding: "0.5rem",
+    alignItems: "flex-start",
+    height: "auto",
+    marginBottom: "0",
+    marginTop: "100px",
+  },
+});
+
+export const Table = styled("table", {
+  width: "100%",
+  maxWidth: "1440px",
+  margin: "0 auto",
+  borderCollapse: "collapse",
+  backgroundColor: "$white",
+  borderRadius: "8px",
+
+  "@media (max-width: 768px)": {
+    display: "flex",
+    flexDirection: "column",
+    gap: "1rem",
+  },
+});
+
+export const TableBody = styled("tbody", {
+  display: "flex",
+  flexDirection: "column",
+  gap: "1rem",
+
+  "@media (max-width: 768px)": {
+    gap: "0.5rem",
+    marginBottom: "0",
+  },
 });
 
 export const TableRow = styled("tr", {
   display: "flex",
   flexDirection: "row",
-  alignItems: "flex-start",
+  alignItems: "center",
   width: "100%",
   backgroundColor: "$primaryForeground",
   border: "2px solid",
   borderRadius: "8px",
   transition: "border 0.3s ease, box-shadow 0.3s ease",
+  padding: "1rem",
+  gap: "1rem",
 
   variants: {
     active: {
       true: {
-        border: "2px solid $primary", // Azul para ativo
+        border: "2px solid $primary",
       },
       false: {
-        border: "none", // Cinza para inativo
+        border: "1px solid $neutral-200",
       },
     },
+  },
+
+  "@media (max-width: 768px)": {
+    flexDirection: "column",
+    padding: "0.5rem",
+    gap: "0.5rem",
+    alignItems: "stretch",
   },
 });
 
 export const TableCell = styled("td", {
-  padding: "2rem",
-  color: "$black",
+  padding: "1rem",
   border: "none",
   display: "flex",
   justifyContent: "flex-start",
+  alignItems: "center",
 
   variants: {
     type: {
@@ -57,7 +87,7 @@ export const TableCell = styled("td", {
         flex: 1,
       },
       action: {
-        flex: "0 0 200px",
+        flex: "0 0 10px",
       },
     },
     align: {
@@ -73,6 +103,13 @@ export const TableCell = styled("td", {
   defaultVariants: {
     align: "center",
   },
+
+  "@media (max-width: 768px)": {
+    padding: "0.25rem",
+    flexDirection: "column",
+    alignItems: "flex-start",
+    width: "100%",
+  },
 });
 
 export const DataItemContainer = styled("div", {
@@ -80,8 +117,12 @@ export const DataItemContainer = styled("div", {
   flexDirection: "row",
   alignItems: "flex-start",
   width: "100%",
-  height: "100%",
-  boxSizing: "border-box",
+  gap: "1rem",
+
+  "@media (max-width: 768px)": {
+    flexDirection: "column",
+    gap: "0.15rem",
+  },
 });
 
 export const DataItem = styled("div", {
@@ -89,18 +130,30 @@ export const DataItem = styled("div", {
   display: "flex",
   flexDirection: "column",
   justifyContent: "flex-start",
+  alignItems: "flex-start",
 });
 
 export const Header = styled("span", {
   color: "$neutral-500",
-  marginBottom: "$4",
+  marginBottom: "0.25rem",
   fontSize: "$xs",
+
+  "@media (max-width: 768px)": {
+    fontSize: "$xxs",
+    textAlign: "left",
+  },
 });
 
 export const DataSpan = styled("span", {
   color: "$black",
   fontSize: "$sm",
   fontWeight: "bold",
+  wordBreak: "break-word",
+
+  "@media (max-width: 768px)": {
+    fontSize: "$xs",
+    textAlign: "left",
+  },
 });
 
 export const ActionContainer = styled("div", {
@@ -108,9 +161,13 @@ export const ActionContainer = styled("div", {
   alignItems: "center",
   justifyContent: "flex-start",
   gap: "$2",
-  margin: 0,
-  padding: 0,
   width: "100%",
+
+  "@media (max-width: 768px)": {
+    justifyContent: "space-between",
+    flexDirection: "row",
+    gap: "0.5rem",
+  },
 });
 
 export const IconButton = styled("button", {
@@ -133,25 +190,6 @@ export const IconButton = styled("button", {
 
     "&:hover": {
       color: "$primary",
-    },
-  },
-});
-export const ProviderStatus = styled("span", {
-  fontSize: "$xs",
-  variants: {
-    active: {
-      true: { color: "$success" },
-      false: { color: "$error" },
-    },
-  },
-});
-
-export const StatusLabel = styled("span", {
-  fontWeight: 500,
-  variants: {
-    active: {
-      true: { color: "$success" },
-      false: { color: "$error" },
     },
   },
 });
