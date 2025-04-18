@@ -1,54 +1,99 @@
-# React + TypeScript + Vite
+# BizTrip – Gerenciador de Credenciais 🔐
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este é um projeto frontend criado com **React**, **Vite**, **TypeScript**, **Stitches** e **Radix UI**, com o objetivo de fornecer uma interface para o **gerenciamento de credenciais**. O sistema permite **listar**, **criar** e **editar** credenciais de forma prática, moderna e interativa.
 
-Currently, two official plugins are available:
+## ✨ Tecnologias e Ferramentas
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- ⚛️ **React 19**
+- ⚡ **Vite**
+- 🎨 **Stitches** (CSS-in-JS)
+- 🧩 **Radix UI** (componentes acessíveis)
+- 🧰 **React Hook Form** + **Yup** (formulários e validação)
+- 🔐 **JWT Decode**
+- 🧪 **Vitest**, **Testing Library** e **Playwright** (testes)
+- 📚 **Storybook** (documentação de componentes)
+- 📡 **Axios** (requisições)
+- 🍞 **React Hot Toast** (feedback visual)
+- 📦 **MSW** (mocks de API)
 
-## Expanding the ESLint configuration
+## 📂 Estrutura do Projeto
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Organizado em:
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+- `components/`: componentes reutilizáveis (ex: Button, Dialog, Select)
+- `hooks/`: hooks customizados
+- `pages/`: telas principais da aplicação
+- `services/`: requisições com Axios
+- `schema/`: validações com Yup
+- `stories/`: documentação dos componentes com Storybook
+
+## 🚀 Como rodar o projeto
+
+### 1. Clonar o repositório
+
+```bash
+git clone https://github.com/Mareanx/biztrip_frontend_teste.git
+cd biztrip_frontend_teste
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 2. Instalar as dependências
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+```bash
+npm install
 ```
+
+### 3. Rodar o projeto em modo desenvolvimento
+
+```bash
+npm run dev
+```
+-Acesse em http://localhost:5173.
+
+# 🛠️ Scripts Disponíveis
+
+| Comando                  | Descrição                                         |
+|--------------------------|---------------------------------------------------|
+| `npm run dev`            | Inicia o projeto em modo de desenvolvimento       |
+| `npm run build`          | Gera os arquivos otimizados de produção           |
+| `npm run preview`        | Pré-visualiza o build                             |
+| `npm run start`          | Pré-visualiza o build (com parâmetro de saída)    |
+| `npm run lint`           | Executa o linter (ESLint)                         |
+| `npm run storybook`      | Inicia o Storybook na porta 6006                  |
+| `npm run build-storybook`| Gera uma versão estática do Storybook             |
+
+
+# 🧪 Testes
+
+O projeto conta com suporte a testes utilizando:
+
+- **[Vitest](https://vitest.dev/)** e **[@testing-library/react](https://testing-library.com/docs/react-testing-library/intro/)** para testes **unitários** e de **integração**.
+- **[Playwright](https://playwright.dev/)** para testes de **ponta a ponta (E2E)**.
+- **[MSW](https://mswjs.io/)** para simular APIs durante o desenvolvimento e os testes.
+
+
+
+# 📖 Storybook
+Acesse a documentação interativa dos componentes com:
+
+```bash
+npm run storybook
+```
+
+# 📦 Build de Produção
+Para gerar a aplicação pronta para deploy:
+
+```bash
+npm run build
+```
+Os arquivos serão gerados no diretório dist/.
+
+# 🙌 Contribuições
+Contribuições são bem-vindas! Sinta-se à vontade para abrir issues, discutir melhorias ou enviar pull requests.
+
+# 📝 Licença
+Este projeto está sob a licença MIT. Consulte o arquivo LICENSE para mais detalhes.
+
+
+
+
+
